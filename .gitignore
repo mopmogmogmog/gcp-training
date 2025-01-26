@@ -1,0 +1,14 @@
+# Node.js関連
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Vue.js関連
+dist/
+*.local
+
+# IDE/エディタ関連
+.vscode/
+.idea/
+.DS_Store
