@@ -1,16 +1,23 @@
-# ベースイメージとしてNode.jsを使用
+# ベースイメージ
 FROM node:16
 
-# 必要なツールをインストール
-RUN apt-get update && apt-get install -y \
-    bash \
-    git \
-    curl \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
 # 作業ディレクトリを設定
-WORKDIR /workspace
+WORKDIR /app
 
-# 既存のnodeユーザーを使用する
-USER node
+# package.json と package-lock.json をコピー
+COPY package*.json ./
+
+# 依存関係をインストール
+RUN npm install
+
+# アプリケーションコードをコピー
+COPY . .
+
+# ビルド
+RUN npm run build
+
+# ポートを公開
+EXPOSE 8080
+
+# アプリケーションを起動
+CMD ["npm", "run", "serve"]
